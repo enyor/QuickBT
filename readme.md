@@ -1,21 +1,39 @@
-# Lumen PHP Framework
+# QuickBT
 
 [![Build Status](https://travis-ci.org/laravel/lumen-framework.svg)](https://travis-ci.org/laravel/lumen-framework)
-[![Total Downloads](https://poser.pugx.org/laravel/lumen-framework/d/total.svg)](https://packagist.org/packages/laravel/lumen-framework)
-[![Latest Stable Version](https://poser.pugx.org/laravel/lumen-framework/v/stable.svg)](https://packagist.org/packages/laravel/lumen-framework)
-[![Latest Unstable Version](https://poser.pugx.org/laravel/lumen-framework/v/unstable.svg)](https://packagist.org/packages/laravel/lumen-framework)
-[![License](https://poser.pugx.org/laravel/lumen-framework/license.svg)](https://packagist.org/packages/laravel/lumen-framework)
 
-Laravel Lumen is a stunningly fast PHP micro-framework for building web applications with expressive, elegant syntax. We believe development must be an enjoyable, creative experience to be truly fulfilling. Lumen attempts to take the pain out of development by easing common tasks used in the majority of web projects, such as routing, database abstraction, queueing, and caching.
 
-## Official Documentation
+QuickBT es un API Rest de prueba desarrollado con el framework Lumen, que contiene las siguientes caracteristicas:
 
-Documentation for the framework can be found on the [Lumen website](https://lumen.laravel.com/docs).
+- Respuestas en formato Json
+- Previene el consumo de los endpoint desde un navegador convencional
+- Valida por medio de token el consumo de los endpoint
 
-## Security Vulnerabilities
+Se utilizaron caracteristicas heredadas de Laravel como Migrations, Factories, Encrypt entre otras.
 
-If you discover a security vulnerability within Lumen, please send an e-mail to Taylor Otwell at taylor@laravel.com. All security vulnerabilities will be promptly addressed.
+## Sobre el entorno de desarrollo
 
-## License
+- Xampp ( PHP 7.3.2, MYSQL, Apache 2.4.38 )
+- Composer ( v1.8.4)
+- Lumen (5.3)
 
-The Lumen framework is open-sourced software licensed under the [MIT license](https://opensource.org/licenses/MIT).
+
+## Instalación
+
+- Clonar el proyecto desde https://github.com/enyor/QuickBT
+
+- Modificar el archivo .env y colocar los datos de acceso a la Base de datos
+
+- Crear Tabla desde migrations
+$ php artisan migrate
+
+- Crear data de prueba desde factories
+$ php artisan migrate:refresh --seed
+
+- Iniciar servidor
+$ php -S localhost:3000 -t public
+
+
+## Licencia
+
+jejeje :)
