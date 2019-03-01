@@ -12,5 +12,20 @@
 */
 
 $router->get('/', function () use ($router) {
-    return $router->app->version();
+    //return $router->app->version();
+    return 'Hello World';
+
+});
+
+$router->group(['prefix' => 'api'], function($router){
+	$router->get('home' , 'UserController@home');
+	$router->get('user' , 'UserController@index');
+});
+
+$router->post('/login', 'UserController@login');
+$router->post('/register', 'UserController@register');
+
+
+$router->group(['middleware' => 'auth'], function($router){
+	$router->get('api/v1',[ 'home' => 'UserController@home']);
 });

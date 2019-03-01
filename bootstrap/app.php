@@ -23,9 +23,9 @@ $app = new Laravel\Lumen\Application(
     dirname(__DIR__)
 );
 
-// $app->withFacades();
+ $app->withFacades(); //Descomentado para poder consultar tablas a traves del modelo
 
-// $app->withEloquent();
+ $app->withEloquent();//Descomentado para poder consultar tablas a traves del modelo
 
 /*
 |--------------------------------------------------------------------------

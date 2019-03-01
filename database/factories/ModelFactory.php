@@ -13,7 +13,11 @@
 
 $factory->define(App\User::class, function (Faker\Generator $faker) {
     return [
-        'name' => $faker->name,
+        'first_name' => $faker->first_name,
+        'last_name' => $faker->last_name,
         'email' => $faker->email,
+        'password' => $faker-> Crypt::encrypt('secret'),
+        'remember_token' => str_ramdom(10),
+        'token' => str_ramdom(20)
     ];
 });
