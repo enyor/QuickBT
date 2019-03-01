@@ -13,7 +13,7 @@
 
 $router->get('/', function () use ($router) {
     //return $router->app->version();
-    return 'Bienvenido al Test desarrollador Backend para Quick';
+    return 'Bienvenido al Test desarrollo Backend para Quick!!!';
 
 });
 
@@ -41,11 +41,11 @@ $router->get('/users/{id}', 'UserController@getuserfromid');
 $router->delete('/users/{id}', 'UserController@deletefromid');
 
 //Cualquier otro intento fuera de los endpoint
-$router->get('/{id}', 'UserController@deletefromid');
+//$router->get('/{id}', 'UserController@deletefromid');
 
 
 
 
-$router->group(['middleware' => 'auth'], function($router){
-	$router->get('logg',[ 'login' => 'UserController@login']);
-});
+/*$router->group(['middleware' => 'auth'], function($router){
+	$router->get('test',[ 'uses' => 'UserController@getallusers']);
+});*/

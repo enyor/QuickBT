@@ -16,7 +16,14 @@ class UserController extends Controller
      */
     public function __construct()
     {
-        //
+        // se establece el middleware para validar por token solo para funciones especificas
+        $this->middleware('auth', ['only' => [
+            'register',
+            'update',
+            'getallusers',
+            'getuserfromid',
+            'deletefromid'
+        ]]);
     }
 
          public function update(Request $request, $id)
@@ -45,12 +52,6 @@ class UserController extends Controller
         return response(NULL, 204);
     }
 
-        function home()
-    {
-        $array = ['prduct'=>'HD77','price'=>'160'];
-        return response()->json($array);
-    }
-    //
 
     public function register(Request $request)
     {
@@ -116,7 +117,7 @@ class UserController extends Controller
         }
     
 
-
+//
 
     }
 }
