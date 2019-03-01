@@ -1,4 +1,5 @@
 <?php
+use Illuminate\Http\Request;
 
 /*
 |--------------------------------------------------------------------------
@@ -17,10 +18,7 @@ $router->get('/', function () use ($router) {
 
 });
 
-$router->group(['prefix' => 'api'], function($router){
-	//$router->get('home' , 'UserController@home');
-	//$router->get('user' , 'UserController@index');
-});
+
 
 //Login
 $router->post('/login', 'UserController@login');
@@ -40,7 +38,7 @@ $router->get('/users/{id}', 'UserController@getuserfromid');
 //Borrar usuario
 $router->delete('/users/{id}', 'UserController@deletefromid');
 
-//Cualquier otro intento fuera de los endpoint
+//Cualquier otro intento fuera de los endpoint genera un 404
 
 
 

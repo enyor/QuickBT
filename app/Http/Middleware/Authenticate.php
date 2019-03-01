@@ -4,6 +4,7 @@ namespace App\Http\Middleware;
 
 use Closure;
 use Illuminate\Contracts\Auth\Factory as Auth;
+use Illuminate\Http\Request;
 
 class Authenticate
 {
@@ -33,11 +34,26 @@ class Authenticate
      * @param  string|null  $guard
      * @return mixed
      */
-    public function handle($request, Closure $next, $guard = null)
+    public function handle(Request $request, Closure $next, $guard = null)
     {
+
+        $accept = $request->header('Accept'); // application/json
+        
+        if( !($accept == 'application/json') ){
+           
+            return response("Request should have header 'Accept' with the value: 'application/json'", 401);
+        }
+
+        
+
         if ($this->auth->guard($guard)->guest()) {
             return response('Unauthorized.', 401);
         }
+
+        
+
+
+
 
         return $next($request);
     }

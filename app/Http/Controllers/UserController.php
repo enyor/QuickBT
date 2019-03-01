@@ -26,6 +26,8 @@ class UserController extends Controller
             'getuserfromid',
             'deletefromid'
         ]]);
+
+        
     }
 
          public function update(Request $request, $id)
