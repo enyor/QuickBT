@@ -41,13 +41,19 @@ class Authenticate
         
         if( !($accept == 'application/json') ){
            
-            return response("Request should have header 'Accept' with the value: 'application/json'", 401);
+            return response()
+                    ->json([
+                      'error' => "Request should have header 'Accept' with the value: 'application/json'" 
+                    ], 401);
         }
 
         
 
         if ($this->auth->guard($guard)->guest()) {
-            return response('Unauthorized.', 401);
+            return response()
+                    ->json([
+                      'error' => 'unauthorized' 
+                    ], 401);
         }
 
         

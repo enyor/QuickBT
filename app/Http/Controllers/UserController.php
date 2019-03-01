@@ -27,7 +27,7 @@ class UserController extends Controller
             'deletefromid'
         ]]);
 
-        
+
     }
 
          public function update(Request $request, $id)
@@ -101,7 +101,11 @@ class UserController extends Controller
           User::where('email', $request->input('email'))->update(['token' => "$apikey"]);
           return response()->json(['id' => $user->id, 'first_name' => $user->first_name, 'last_name' => $user->last_name, 'email' => $user->email,'token' => $apikey]);
       }else{
-          return response('error: Error in user or password',401);
+          
+          return response()
+                    ->json([
+                      'error' => 'Error in user or password' 
+                    ], 401);
         
       }
       
