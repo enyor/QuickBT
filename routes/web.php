@@ -26,7 +26,7 @@ $router->group(['prefix' => 'api'], function($router){
 $router->post('/login', 'UserController@login');
 
 //Registro
-$router->post('/register', 'UserController@register');
+$router->post('/users', 'UserController@register');
 
 //Modificar
 $router->put('/users/{id}', 'UserController@update');
@@ -41,7 +41,7 @@ $router->get('/users/{id}', 'UserController@getuserfromid');
 $router->delete('/users/{id}', 'UserController@deletefromid');
 
 //Cualquier otro intento fuera de los endpoint
-//$router->get('/{id}', 'UserController@deletefromid');
+
 
 
 

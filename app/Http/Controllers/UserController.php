@@ -5,6 +5,8 @@ namespace App\Http\Controllers;
 use App\User;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth; 
+use Illuminate\Support\Facades\Hash;
+use Illuminate\Support\Facades\Crypt;
 use Validator;
 
 class UserController extends Controller
@@ -60,62 +62,42 @@ class UserController extends Controller
             'password' => 'required'
         ]);
  
-        $hasher = app()->make('hash');
+      
         $email = $request->input('email');
         $first_name = $request->input('first_name');
         $last_name = $request->input('last_name');
-        $password = $hasher->make($request->input('password'));
+        $password = Crypt::encrypt($request->input('password'));
+        $token = base64_encode(str_random(40));
         $user = User::create([
             'first_name' => $first_name,
             'last_name' => $last_name,
             'email' => $email,
             'password' => $password,
+            'token' => $token,
         ]);
  
-        $res['success'] = true;
-        $res['message'] = 'Success register!';
-        $res['data'] = $user;
-        return response($res);
+        
+        return response(NULL,201);
     }
 
     public function login(Request $request)
     {
-        /*if(Auth::attempt(['email' => request('email'), 'password' => request('password')])) { //Validamos que el user existe en bbdd 
-            $user = Auth::user(); //Login
-            $success['token'] =  $user->createToken('MyApp')->accessToken; //creamos el token
-            //return response()->json(['success' => $success], 200);
-            return response()->json($user, 200);
+      
+        $this->validate($request, [
+       'email' => 'required',
+       'password' => 'required'
+        ]);
+      $user = User::where('email', $request->input('email'))->first();
+      $rpass = $request->input('password');
+      $decry = Crypt::decrypt($user->password);
 
-        } else {
-            return response()->json(['error'=>'Unauthorised'], 401); 
-        }*/
-        $hasher = app()->make('hash');
- 
-        $email = $request->input('email');
-        $password = $request->input('password');
-        $login = User::where('email', $email)->first();
- 
-        if ( ! $login) {
-            $res['success'] = false;
-            $res['message'] = 'Your email or password incorrect!';
-            return response($res);
-        } else {
-            if ($hasher->check($password, $login->password)) {
-                $api_token = sha1(time());
-                $create_token = User::where('id', $login->id)->update(['api_token' => $api_token]);
-                if ($create_token) {
-                    $res['success'] = true;
-                    $res['api_token'] = $api_token;
-                    $res['message'] = $login;
-                    return response($res);
-                }
-            } else {
-                $res['success'] = true;
-                $res['message'] = 'You email or password incorrect!';
-                return response($res);
-            }
-        }
-    
+     if($rpass == $decry){
+          $apikey = base64_encode(str_random(40));
+          User::where('email', $request->input('email'))->update(['token' => "$apikey"]);
+          return response()->json(['id' => $user->id, 'first_name' => $user->first_name, 'last_name' => $user->last_name, 'email' => $user->email,'token' => $apikey]);
+      }else{
+          return response('error: Error in user or password',401);
+      }
 
 //
 
