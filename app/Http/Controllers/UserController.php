@@ -19,10 +19,30 @@ class UserController extends Controller
         //
     }
 
-    public function index()
+         public function update(Request $request, $id)
+    {
+      $input = $request->all();
+      $user = User::where('id', $id)->update($input);
+      return response(NULL, 204);
+
+    }
+
+        public function getallusers()
     {
         $user = User::all();
         return response()->json($user, 200);
+    }
+
+    public function getuserfromid($id)
+    {
+        $user = User::find($id);
+        return response()->json($user, 200);
+    }
+
+    public function deletefromid($id)
+    {
+        $user = User::destroy($id);
+        return response(NULL, 204);
     }
 
         function home()

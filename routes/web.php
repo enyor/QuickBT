@@ -13,19 +13,39 @@
 
 $router->get('/', function () use ($router) {
     //return $router->app->version();
-    return 'Hello World';
+    return 'Bienvenido al Test desarrollador Backend para Quick';
 
 });
 
 $router->group(['prefix' => 'api'], function($router){
-	$router->get('home' , 'UserController@home');
-	$router->get('user' , 'UserController@index');
+	//$router->get('home' , 'UserController@home');
+	//$router->get('user' , 'UserController@index');
 });
 
+//Login
 $router->post('/login', 'UserController@login');
+
+//Registro
 $router->post('/register', 'UserController@register');
+
+//Modificar
+$router->put('/users/{id}', 'UserController@update');
+
+//Obtener todos los usuarios
+$router->get('/users', 'UserController@getallusers');
+
+//Consultar usuario especifico
+$router->get('/users/{id}', 'UserController@getuserfromid');
+
+//Borrar usuario
+$router->delete('/users/{id}', 'UserController@deletefromid');
+
+//Cualquier otro intento fuera de los endpoint
+$router->get('/{id}', 'UserController@deletefromid');
+
+
 
 
 $router->group(['middleware' => 'auth'], function($router){
-	$router->get('api/v1',[ 'home' => 'UserController@home']);
+	$router->get('logg',[ 'login' => 'UserController@login']);
 });
