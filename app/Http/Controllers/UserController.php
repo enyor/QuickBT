@@ -88,6 +88,9 @@ class UserController extends Controller
        'password' => 'required'
         ]);
       $user = User::where('email', $request->input('email'))->first();
+      if (!$user){
+            return response('error: Error in user or password',401);
+      }
       $rpass = $request->input('password');
       $decry = Crypt::decrypt($user->password);
 
@@ -97,7 +100,9 @@ class UserController extends Controller
           return response()->json(['id' => $user->id, 'first_name' => $user->first_name, 'last_name' => $user->last_name, 'email' => $user->email,'token' => $apikey]);
       }else{
           return response('error: Error in user or password',401);
+        
       }
+      
 
 //
 
